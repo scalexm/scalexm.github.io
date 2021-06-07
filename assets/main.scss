@@ -1,0 +1,26 @@
+---
+# Only the main Sass file needs front matter (the dashes are enough)
+---
+
+.dropcap{
+    float:left;
+    font-size: 310%;
+    line-height: 85%;
+    width: .7em;
+    padding-top: 4px;
+    padding-right: 5px;
+    font-family: Georgia;
+}
+
+.post-content :where(p, li, blockquote, dl /* etc. */) {
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+    -webkit-hyphenate-limit-before: 3; /* For Safari */
+    -webkit-hyphenate-limit-after: 4; /* For Safari */
+    -ms-hyphenate-limit-chars: 10 3 4;
+    hyphenate-limit-chars: 6 3;
+    text-align: justify;
+}
+
+@import "minima";
