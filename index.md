@@ -9,7 +9,7 @@ title: About me
 [Resume] &middot; [GitHub] &middot; [LinkedIn]
 
 Hi, I'm Alexandre and I live in Paris. I am a maths / tech guy who happens to work in finance.
-As an aside, I am an active contributor to the Rust programming language. Here you'll find my
+As an aside, I am a  contributor to the Rust programming language. Here you'll find my
 LinkedIn, my GitHub as well as an updated resume.
 
 [Resume]: cv_en.pdf
