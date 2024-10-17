@@ -7,18 +7,19 @@ title: Inconsistency of the Single Index Model
 Paleologo led me to give some thoughts to the so-called **Single Index Model** or **Diagonal
 Model**, originally introduced by Sharpe[^1] in 1963, and the way it is typically exposed in
 introductory texts or in online writings. I am not going to discuss the empirical validity of the
-model too much, as there has been a ton of literature on the subject and we now have more general
-factor models for a reason. Instead, I will focus on an oddity that made me question the actual
-soundness of the model.
+model too much, as there has been a large amount of literature on the subject and we now have more
+general factor models for a reason. Instead, I will focus on an oddity that initially made me
+question the soundness of the model, how it can be resolved, and why it can be considered an
+important subject of discussion.
 
 ### A probabilistic model
 
-The assumptions of the model are as follows: there are $$n$$ risky assets with random returns
-$$R_1, \dots, R_n$$. In addition, the return of the **market portfolio** is denoted by $$R_M$$. The
-real-life portfolio that corresponds best to the market portfolio does not have to be specifically
-defined at this point, but it is at least assumed that it contains each asset $$i$$ (or just a
-strict subset of the assets) in proportion $$\omega_i > 0$$ with $$\sum \omega_i = 1$$. Finally,
-the dynamics of the random returns are given by:
+There are $$n$$ risky assets with random returns $$R_1, \dots, R_n$$. In addition, the return of
+the **market portfolio** is denoted by $$R_M$$. The real-life portfolio that corresponds best to
+the market portfolio does not have to be specifically defined at this point, but it is at least
+assumed that it contains each asset $$i$$ (or just a strict subset of the assets) in proportion
+$$\omega_i > 0$$ with $$\sum \omega_i = 1$$. Finally, the dynamics of the random returns are given
+by:
 
 $$
 \begin{equation}
@@ -40,7 +41,7 @@ $$
 
 The residual standard deviation $$\sigma(\varepsilon_i) = \sqrt{\text{Var}(\varepsilon_i)}$$ is
 also called the **idiosyncratic** volatility of asset $$i$$. The first two conditions in
-$$\eqref{eq:hypothesis}$$ make the model equivalent to $$n$$ different linear regressions where
+$$\eqref{eq:hypothesis}$$ make the model equivalent to $$n$$ individual linear regressions where
 observations of $$R_i$$ are regressed onto observations of $$R_M$$.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -63,13 +64,13 @@ $$
 $$
 
 and concluding that as the cardinal of $$J$$ increases, $$\sum \psi_j^2$$ is typically much smaller
-than $$1$$ because of the relation $$\sum \psi_j = 1$$. This is also the approach used in
+than $$1$$ because of the relation $$\sum \psi_j = 1$$. This last approach is also used in
 *Advanced Portfolio Management* to justify that the idiosyncratic volatility of the market
 portfolio itself is comparatively small[^2]. However, another argument could be made for the market
 portfolio: since we are regressing asset returns onto the market portfolio return, the beta of
 the market portfolio is one and its residual is zero *by definition*, therefore its idiosyncratic
-volatility is trivially zero. I started to speculate about the presence of a circular argument
-somewhere, and indeed we can observe more rigorously that
+volatility is trivially zero. Thinking about this, I started to speculate about the presence of a
+circular argument somewhere, and indeed we can observe more rigorously that
 
 $$
 \begin{align}
@@ -77,12 +78,12 @@ R_M &= \sum\limits_{i=1}^n \omega_i R_i \nonumber \\
     &= \sum\limits_{i=1}^n \omega_i (\alpha_i + \beta_i R_M + \varepsilon_i) \nonumber \\
     &= \sum\limits_{i=1}^n \omega_i \alpha_i
         + \left( \sum\limits_{i=1}^n \omega_i \beta_i \right) R_M
-        + \sum\limits_{i=1}^n \omega_i \varepsilon_i .
+        + \sum\limits_{i=1}^n \omega_i \varepsilon_i
 \label{eq:circular}
 \end{align}
 $$
 
-For a fixed $$j \in \{1, \cdots, n\}$$, applying the second condition of
+then notice that for a fixed $$j \in \{1, \cdots, n\}$$, applying the second condition of
 $$\eqref{eq:hypothesis}$$ and substituting $$R_M$$ with the expression from $$\eqref{eq:circular}$$
 yields
 
@@ -95,7 +96,7 @@ $$
 \end{align}
 $$
 
-where we used the fact that the covariance with a constant is zero, the second condition of
+where I used the fact that the covariance with a constant is zero, the second condition of
 $$\eqref{eq:hypothesis}$$ once more, and the uncorrelation of the $$(\varepsilon_i)$$. Hence, we
 obtain $$0 = \mathop{\text{Var}}(\varepsilon_j) = \mathop{\mathbf{E}}(\varepsilon_j^2)$$ because of
 the first condition in $$\eqref{eq:hypothesis}$$, which is only possible if $$\varepsilon_j = 0$$
@@ -105,19 +106,18 @@ the first condition in $$\eqref{eq:hypothesis}$$, which is only possible if $$\v
 By exploiting the assumptions of the model, we reduced it to a trivial case where every asset
 return is an affine combination of the others. Surely this is *not* what Sharpe had in mind, and
 yet after re-reading his original papers, the inconsistency was there from the beginning. Does that
-mean that the model is irreparably flawed and that we can't just add up idiosyncratic volatilities
-to compute the volatility of a portfolio, or hedge out the market risk common to all assets? The
-empirical applications tend to say that yes, we can do these things at least as an approximation,
-so the situation may be salvageable. The residuals cannot be uncorrelated, but the empirical
-cross-correlations look to be small enough for the "natural" consequences of the model to hold
-approximately, such as additivity of the idiosyncratic volatilities. Can we just replace the
-uncorrelation hypothesis in $$\eqref{eq:hypothesis}$$ by "cross-correlations must be small"? Well,
-this is not an appropriate way of describing a mathematical model, and it also prevents saying
-anything quantitative about the cases where "small" is not actually small enough.
+mean that the model is irreparably flawed and that we can't just add up idiosyncratic variances
+to compute the variance of a portfolio, or hedge out the market risk common to all assets? In fact,
+the empirical applications tend to show that we can still do these things, at least as an
+approximation, because the residual cross-correlations are small: the theoretical issue really lies
+in amalgamating "small" and "exactly zero". Can we just replace the third hypothesis in
+$$\eqref{eq:hypothesis}$$ by "cross-correlations must be small"? Aside from not being an
+appropriate way of describing a mathematical model, it also prevents saying anything quantitative
+about the cases where "small" is not actually small enough.
 
 ### The CAPM and the origins of the model
 
-As I said, I started by revisiting the old papers written by Sharpe, from which I got a better
+As I said, I started by revisiting the first papers written by Sharpe, from which I got a better
 understanding of how his Diagonal Model came to life. Oddly enough, it is often amalgamated with
 the **CAPM** published as an independent paper one year later[^3]: Sharpe initially wrote a first
 version of the CAPM in terms of the Diagonal Model in his 1961 PhD dissertation[^4], but it was
@@ -127,8 +127,8 @@ different sets of assumptions.
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 Fundamentally, the CAPM is just a solution to the Mean Variance Optimization problem introduced by
 Markowitz, when the market is in a specific equilibrium. MVO really only relates to *expectations*
-of returns rather than their dynamics, and as such the original CAPM formulation is also given in
-terms of expectations:
+of returns rather than their dynamics, and as such the CAPM formulation is also given in terms of
+expectations:
 
 $$
 \begin{equation}
@@ -197,10 +197,10 @@ assumptions such as investors acting rationally or asset prices being in equilib
 *extrapolation* of the CAPM in which $$R_M$$ doesn't have to be the return of the exact portfolio
 from the CAPM, but rather any portfolio or **factor** that is believed to drive returns in a given
 universe of assets: Sharpe does leave this door open in his 1963 paper (even though he only
-proceeds to apply it with actual market portfolios), and this interpretation is what is going to
-help us fix the theoretical soundness issue described earlier. Still, the model remains in a
-sense *compatible* with the CAPM: this time as a consequence of the uncorrelatedness of
-$$\varepsilon_i$$ and $$R_M$$, we obtain again
+proceeds to apply it with actual portfolios), and this interpretation is what is going to help us
+fix the theoretical soundness issue described earlier. Still, the model remains in a sense
+*compatible* with the CAPM: this time as a consequence of the uncorrelatedness of $$\varepsilon_i$$
+and $$R_M$$, we obtain again
 
 $$
     \beta_i = \frac{\text{Cov}(R_i, R_M)}{\text{Var}(R_M)}
@@ -212,28 +212,24 @@ appealed to Sharpe.
 
 ### Fama to the rescue
 
-After stumbling onto the issue exposed in the first section, I was initially left confused. It was
-not the first time I came across the Single Index Model, but I had never spent much time thinking
-about it deeply. My first reflex has been to search for answers on the internet, without a lot of
-success. For example at the time of writing, [Wikipedia][wikipedia] defines the model more or less
-exactly as I do in my first section. The Wikipedia page does acknowledge that *empirically*, the
-residual cross-correlations are not exactly zero, but apparently without realizing that using
-$$\text{Cov}(\varepsilon_i, \varepsilon_j) = 0$$ as an approximation of reality makes the model so
-constrained as to render it trivial. I even asked ChatGPT, without luck of course (every time I ask
-something to ChatGPT, I secretly hope that it gives me an incorrect answer, it makes me feel
-better). I started to wonder whether people were aware of the issue and simply did not deem it
-worthy of discussion.
+After stumbling onto the issue exposed in the first section, my first reflex has been to search
+for answers on the internet, without a lot of success. For example at the time of writing,
+[Wikipedia][wikipedia] defines the model more or less exactly as I do in my first section. The
+Wikipedia page does acknowledge that *empirically*, the residual cross-correlations are not exactly
+zero, but apparently without realizing that using $$\text{Cov}(\varepsilon_i, \varepsilon_j) = 0$$
+as an approximation of reality makes the model so constrained as to render it trivial. I even asked
+ChatGPT, without luck of course (every time I ask something to ChatGPT, I secretly hope that it
+gives me an incorrect answer, it makes me feel better about myself).
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-It turned out to be another explanation: writings about finance on the internet are just of low
-quality in general. And after spending a few hours searching through old papers, I finally found
-one written by Fama in 1968[^5] that was discussing precisely the issue that I describe. Fama also
-notices that the three conditions in $$\eqref{eq:hypothesis}$$ cannot hold all at once. In fact, he
-still makes a small mistake by stating that even the second condition cannot hold by itself[^6] (we
-will revisit this case in the next and final section) but otherwise proposes a revised model that
-stays in the spirit of Sharpe's original one: instead of regressing the $$R_i$$ directly onto
-$$R_M$$, Fama postulates the existence of an unobservable random factor $$\widetilde{R}$$ and a new
-family of residuals $$(\widetilde{\varepsilon}_i)$$ such that
+After spending a few hours searching through old papers, I finally found one written by Fama in
+1968[^5] that precisely discusses the issue. Fama also notices that the three conditions in
+$$\eqref{eq:hypothesis}$$ cannot hold all at once. In fact, he still makes a small mistake by
+stating that even the second condition cannot hold by itself[^6] (we will revisit this case in the
+next and final section) but otherwise proposes a revised model that stays in the spirit of
+Sharpe's: instead of regressing the $$R_i$$ directly onto $$R_M$$, Fama postulates the existence
+of an unobservable random factor $$\widetilde{R}$$ and a new family of residuals
+$$(\widetilde{\varepsilon}_i)$$ such that
 
 $$
 \begin{equation}
@@ -242,7 +238,7 @@ R_i = \alpha_i + \beta_i \widetilde{R} + \widetilde{\varepsilon}_i, \quad 1 \leq
 \end{equation}
 $$
 
-where the new residuals satisfy three conditions similar to the original ones:
+where the new residuals satisfy three conditions similar to $$\eqref{eq:hypothesis}$$:
 
 $$
 \begin{align}
@@ -252,7 +248,7 @@ $$
 \end{align}
 $$
 
-How is it different from the original model? The key point is that the regressor $$\widetilde{R}$$
+How is it different from the Diagonal Model? The key point is that the regressor $$\widetilde{R}$$
 is not defined in terms of the $$R_i$$ anymore, it is instead an external force that drives returns
 rather than an actual portfolio: it is an early example of a factor model where the underlying
 factor cannot be observed directly in the market. Within Fama's model, $$R_M$$ now has a beta
@@ -267,8 +263,14 @@ $$
 
 However, it can be noted that applying an affine transformation to $$\widetilde{R}$$ gives
 another equivalent formulation of Fama's model, so that we can choose to have $$\alpha_M = 0$$ and
-$$\beta_M = 1$$ without loss of generality.  We can now translate $$\eqref{eq:fama}$$ into a
-regression similar to the one in Sharpe's model:
+$$\beta_M = 1$$ without loss of generality and simplify the previous relation to
+$$R_M = \widetilde{R} + \widetilde{\varepsilon}_M$$. Using the same argument as in
+$$\eqref{eq:idio_ptf}$$, we can expect the idiosyncratic variance
+$$\text{Var}(\widetilde{\varepsilon}_M)$$ to be small relative to $$\text{Var}(\widetilde{R})$$,
+such that $$R_M \approx \widetilde{R}$$ illustrates the concept of **factor-mimicking portfolios**,
+which are tradeable portfolios designed to have a performance approximating that of an unobservable
+factor. It then makes sense to translate $$\eqref{eq:fama}$$ into a regression onto $$R_M$$ as in
+Sharpe's model:
 
 $$
 \begin{align}
@@ -287,27 +289,34 @@ $$
 $$
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-With the formulation from $$\eqref{eq:new_regression}$$, we can now in theory estimate the
-$$\beta_i$$ exactly as in the original model by regressing the observations of $$R_i$$ onto
-$$R_M$$. However, this regression is not *well-posed* in the sense that $$\varepsilon_i$$ and
-$$R_M$$ are no longer necessarily uncorrelated. Hence, the OLS estimator of $$\beta_i$$ is no
-longer consistent and instead converges to
+With the formulation from $$\eqref{eq:new_regression}$$, we can in theory estimate $$\beta_i$$
+exactly as in the original model by regressing observations of $$R_i$$ onto $$R_M$$. However, this
+regression is no longer *well-posed* in the sense that $$\varepsilon_i$$ and $$R_M$$ are not
+necessarily uncorrelated. Hence, the OLS estimator of $$\beta_i$$ is no longer consistent and
+instead converges to
 
 $$
-    \frac{\beta_i}{1 +
+    \frac{\text{Cov}(R_i, R_M)}{\text{Var}(R_M)} = \frac{
+        \beta_i + \omega_i \frac{
+            \mathop{\text{Var}(\widetilde{\varepsilon}_i)}
+        }{
+            \mathop{\text{Var}(\widetilde{R})}
+        }
+    }{1 +
         \frac{
             \mathop{\text{Var}(\widetilde{\varepsilon}_M)}
         }{
             \mathop{\text{Var}(\widetilde{R})}
-        } 
-    }
+        }
+    } .
 $$
 
-but using the same argument as developed in the first section in $$\eqref{eq:idio_ptf}$$, we can
-expect the idiosyncratic variance of $$R_M$$ to be small, and hopefully small enough in comparison
-to $$\mathop{\text{Var}(\widetilde{R})}$$ so that our estimator converges to a value close to the
-real $$\beta_i$$. We can also give a few other properties of the "proxy" residuals
-$$(\varepsilon_i)$$, for example the non-diagonal elements of the covariance matrix are given by
+Assuming $$\text{Var}(\widetilde{\varepsilon}_M) \ll \mathop{\text{Var}(\widetilde{R})}$$ and
+$$\text{Var}(\widetilde{\varepsilon}_i) \approx \mathop{\text{Var}(\widetilde{R})}$$, the OLS
+estimator would in general still converge to a value close to the real $$\beta_i$$, but would
+nevertheless tend to overshoot for assets having a large weight in the chosen portfolio. We can
+also give a few other properties of the "proxy" residuals $$(\varepsilon_i)$$, for example the
+non-diagonal elements of the covariance matrix are given by
 
 $$
 \begin{align}
@@ -318,9 +327,9 @@ $$
 \end{align}
 $$
 
-which is indeed different from zero: assets with a large beta and a large weight in the market
-portfolio would typically have their proxy residuals be more correlated to other proxy residuals.
-And when it comes to reformulating the risk decomposition of asset returns, we obtain
+which is indeed different from zero: assets with a large beta and a large weight would typically
+have their proxy residuals be more correlated to other proxy residuals. And when it comes to
+reformulating the risk decomposition of asset returns, we obtain
 
 $$
 \text{Var}(R_i) = \beta_i^2 \left[
@@ -332,14 +341,55 @@ $$
     \right]
 $$
 
-which is a decomposition similar to the one from $$\eqref{eq:decomposition}$$ but with a decreased
+which is a decomposition similar to the one in $$\eqref{eq:decomposition}$$, but with a decreased
 contribution of the systematic component and an increased contribution of the unsystematic one.
 Other elementary properties can be derived in the same way, and can be used to assess whether some
 approximations are likely to hold empirically or not.
 
-### Digression about Model Theory from formal logic
+### Digression on Model Theory from formal logic
 
-Abcd.
+If you have read until here, you might be wondering why we even bothered with this theoretical
+issue if the consequences of the Single Index Model still hold approximately in an empirical
+setting. The most important aspect lies in the precise definition of the word "consequences", as I
+will illustrate with simplified concepts drawn from formal logic.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+In formal logic, the concept of **theory** describes a set of elementary assumptions (also called
+**axioms**) about unspecified objects (also called **variables**), and the derivation of new
+consequences (also called **theorems**) about said objects using only the axioms. A key point is
+that when deriving or proving theorems, the true nature of the objects never needs to be discussed.
+In our analogy, a theory describing the Single Index Model would have for objects the assets
+returns $$R_1, \cdots, R_n$$ and the residuals $$\varepsilon_1, \cdots, \varepsilon_n$$, while the
+axioms would be the respective relations between $$R_i$$ and $$\varepsilon_i$$ given by
+$$\eqref{eq:model}$$ as well as the three conditions in $$\eqref{eq:hypothesis}$$. An example of
+theorem within this theory would be that the idiosyncratic variance of a portfolio is equal to
+the weighted sum of the idiosyncratic variances of its constituents. Notice that in order to prove
+this theorem, we never needed to discuss whether $$R_1$$ represents the return of AAPL or NVDA, or
+another stock listed in another country, and it could as well not even correspond to any real-life
+return.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+An **inconsistent** theory is a special, degenerate case of theory in which it is possible to prove
+both one thing and its contrary from the axioms. For example if you make a theory of stock prices
+where prices are always positive along with a bunch of other assumptions, and then later you build
+an example within the theory of a stock whose price can become negative, then you theory is
+inconsistent. It can easily be shown that an inconsistent theory also proves *every single
+sentence* about the objects: not only can you prove one thing and its contrary, but you can in fact
+literally prove anything you want. Our theory of the Single Index Model as laid out in the first
+section was not inconsistent in the strict sense, we just proved that it was equivalent to a much
+simpler theory where $$\varepsilon_i$$ is always zero. However if we start assuming that
+$$\varepsilon_i \neq 0$$, then our theory becomes *truly* inconsistent, because it proves both
+$$\varepsilon_i = 0$$ and $$\varepsilon_i \neq 0$$ (the latter is now another axiom). And in
+general, it is very easy to *implicitly* add simple and reasonable assumptions like
+$$\varepsilon_i \neq 0$$ in a reasoning: for example, just observe that I implicitly assumed
+$$\text{Var}(R_M) \neq 0$$ throughouht a majority of the previous sections without ever stating it
+explicitly. From there, the danger is that we start proving theorems that feel like "natural"
+consequences of the assumptions, without realizing that we are relying on the inconsistency of
+the theory. For example, let's say that we find a proof that the idiosyncratic volatility
+of any asset is always less than $$100\%$$ (remember that we *will* find such a proof because the
+theory proves everything due to its inconsistency). We test this property empirically on a few
+stocks within our investment universe, and find that it is empirically true, so we become confident
+that no mistake was made in our proof.
 
 [^1]: William F. Sharpe. *A Simplified Model for Portfolio Analysis*. Management Science. Vol. 9, No. 2 (Jan 1963), pp. 277-293.
 [^2]: Chapter 4, "An Introduction to Multi-Factor Models", p. 39.
