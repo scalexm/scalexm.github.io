@@ -7,10 +7,9 @@ title: Inconsistency of the Single Index Model
 Paleologo led me to give some thoughts to the so-called **Single Index Model** or **Diagonal
 Model**, originally introduced by Sharpe[^1] in 1963, and the way it is typically exposed in
 introductory texts or in online writings. I am not going to discuss the empirical validity of the
-model too much, as there has been a large amount of literature on the subject and we now have more
-general factor models for a reason. Instead, I will focus on an oddity that initially made me
-question the soundness of the model, how it can be resolved, and why it can be considered an
-important subject of discussion.
+model too much, as there has been a large amount of literature on the subject and we now have
+multi-factor models for a reason. Instead, I will focus on an oddity that initially made me
+question the soundness of the model, how it can be resolved, and why it matters.
 
 ### A probabilistic model
 
@@ -104,9 +103,9 @@ the first condition in $$\eqref{eq:hypothesis}$$, which is only possible if $$\v
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 By exploiting the assumptions of the model, we reduced it to a trivial case where every asset
-return is an affine combination of the others. Surely this is *not* what Sharpe had in mind, and
-yet after re-reading his original papers, the inconsistency was there from the beginning. Does that
-mean that the model is irreparably flawed and that we can't just add up idiosyncratic variances
+return is an affine combination of the others. Surely this is not what Sharpe had in mind, and yet
+after re-reading his original papers, the inconsistency was there from the beginning. Does that
+mean that the model is irreparably flawed and that we cannot just add up idiosyncratic variances
 to compute the variance of a portfolio, or hedge out the market risk common to all assets? In fact,
 the empirical applications tend to show that we can still do these things, at least as an
 approximation, because the residual cross-correlations are small: the theoretical issue really lies
@@ -117,7 +116,7 @@ about the cases where "small" is not actually small enough.
 
 ### The CAPM and the origins of the model
 
-As I said, I started by revisiting the first papers written by Sharpe, from which I got a better
+I took the time to revisit the first papers written by Sharpe, from which I got a better
 understanding of how his Diagonal Model came to life. Oddly enough, it is often amalgamated with
 the **CAPM** published as an independent paper one year later[^3]: Sharpe initially wrote a first
 version of the CAPM in terms of the Diagonal Model in his 1961 PhD dissertation[^4], but it was
@@ -194,7 +193,7 @@ really only takes two natural leaps to go from the CAPM to Sharpe's Diagonal Mod
 The Diagonal Model now becomes a completely independent model that simply attempts to encode the
 empirical observation that market risk is the common driver of returns, free of any economic
 assumptions such as investors acting rationally or asset prices being in equilibrium. It is an
-*extrapolation* of the CAPM in which $$R_M$$ doesn't have to be the return of the exact portfolio
+*extrapolation* of the CAPM in which $$R_M$$ does not have to be the return of the exact portfolio
 from the CAPM, but rather any portfolio or **factor** that is believed to drive returns in a given
 universe of assets: Sharpe does leave this door open in his 1963 paper (even though he only
 proceeds to apply it with actual portfolios), and this interpretation is what is going to help us
@@ -218,11 +217,12 @@ for answers on the internet, without a lot of success. For example at the time o
 Wikipedia page does acknowledge that *empirically*, the residual cross-correlations are not exactly
 zero, but apparently without realizing that using $$\text{Cov}(\varepsilon_i, \varepsilon_j) = 0$$
 as an approximation of reality makes the model so constrained as to render it trivial. I even asked
-ChatGPT, without luck of course (every time I ask something to ChatGPT, I secretly hope that it
-gives me an incorrect answer, it makes me feel better about myself).
+ChatGPT but needless to say, the result was disappointing (every time I ask something to ChatGPT, I
+secretly hope that it gives me an incorrect answer: it makes me feel a bit less concerned about
+the imminent AI takeover prophetized by X/Twitter experts).
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-After spending a few hours searching through old papers, I finally found one written by Fama in
+Trying my luck at searching through old papers instead, I finally found one written by Fama in
 1968[^5] that precisely discusses the issue. Fama also notices that the three conditions in
 $$\eqref{eq:hypothesis}$$ cannot hold all at once. In fact, he still makes a small mistake by
 stating that even the second condition cannot hold by itself[^6] (we will revisit this case in the
@@ -341,55 +341,87 @@ $$
     \right]
 $$
 
-which is a decomposition similar to the one in $$\eqref{eq:decomposition}$$, but with a decreased
-contribution of the systematic component and an increased contribution of the unsystematic one.
-Other elementary properties can be derived in the same way, and can be used to assess whether some
-approximations are likely to hold empirically or not.
+which is a decomposition similar to $$\eqref{eq:decomposition}$$, but with a decreased contribution
+of the systematic component and an increased contribution of the unsystematic one. Other elementary
+properties can be derived in the same way, and can be used to assess whether some approximations
+are likely to hold empirically or not.
 
 ### Digression on Model Theory from formal logic
 
 If you have read until here, you might be wondering why we even bothered with this theoretical
 issue if the consequences of the Single Index Model still hold approximately in an empirical
 setting. The most important aspect lies in the precise definition of the word "consequences", as I
-will illustrate with simplified concepts drawn from formal logic.
+will illustrate using analogies to simplified concepts drawn from formal logic.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-In formal logic, the concept of **theory** describes a set of elementary assumptions (also called
-**axioms**) about unspecified objects (also called **variables**), and the derivation of new
+In formal logic, the concept of **theory** describes a set of elementary assumptions (called
+**axioms**) about unspecified objects (called **variables**), and the derivation of new
 consequences (also called **theorems**) about said objects using only the axioms. A key point is
-that when deriving or proving theorems, the true nature of the objects never needs to be discussed.
-In our analogy, a theory describing the Single Index Model would have for objects the assets
-returns $$R_1, \cdots, R_n$$ and the residuals $$\varepsilon_1, \cdots, \varepsilon_n$$, while the
-axioms would be the respective relations between $$R_i$$ and $$\varepsilon_i$$ given by
+that when deriving or proving theorems, the true nature of the variables never needs to be
+discussed, the only thing we know is that they verify the axioms of the theory. In our analogy, a
+theory describing the Single Index Model would have for variables the asset returns
+$$R_1, \cdots, R_n$$ and the residuals $$\varepsilon_1, \cdots, \varepsilon_n$$, while the axioms
+would be the respective relations between $$R_i$$ and $$\varepsilon_i$$ given by
 $$\eqref{eq:model}$$ as well as the three conditions in $$\eqref{eq:hypothesis}$$. An example of
 theorem within this theory would be that the idiosyncratic variance of a portfolio is equal to
-the weighted sum of the idiosyncratic variances of its constituents. Notice that in order to prove
-this theorem, we never needed to discuss whether $$R_1$$ represents the return of AAPL or NVDA, or
-another stock listed in another country, and it could as well not even correspond to any real-life
-return.
+the weighted sum of the idiosyncratic variances of its constituents. We did not discuss the role
+of the $$(\alpha_i, \beta_i)_{1 \leq i \leq n}$$ and $$(\omega_i)_{1 \leq i \leq n}$$, but we can
+simply consider them as free parameters so that we are really facing an entire *collection* of
+theories, each one being defined by specific values of the parameters.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-An **inconsistent** theory is a special, degenerate case of theory in which it is possible to prove
-both one thing and its contrary from the axioms. For example if you make a theory of stock prices
-where prices are always positive along with a bunch of other assumptions, and then later you build
-an example within the theory of a stock whose price can become negative, then you theory is
-inconsistent. It can easily be shown that an inconsistent theory also proves *every single
-sentence* about the objects: not only can you prove one thing and its contrary, but you can in fact
-literally prove anything you want. Our theory of the Single Index Model as laid out in the first
-section was not inconsistent in the strict sense, we just proved that it was equivalent to a much
-simpler theory where $$\varepsilon_i$$ is always zero. However if we start assuming that
+An **inconsistent** or **contradictory** theory is a special, degenerate case of theory in which it
+is possible to prove both one thing and its contrary from the axioms. For example if you make a
+theory of stock prices where prices are always positive along with a bunch of other assumptions,
+and later build an example within the theory of a stock whose price can become negative, then your
+theory is inconsistent. It can easily be shown that an inconsistent theory also proves *every
+single sentence*: not only can you prove one thing and its contrary, but you can in fact literally
+prove anything you want. Our theory of the Single Index Model as laid out in the first section was
+not inconsistent in the strict sense, we just proved that it was equivalent to a much simpler
+theory where $$\varepsilon_i$$ is always zero. However if we start assuming that
 $$\varepsilon_i \neq 0$$, then our theory becomes *truly* inconsistent, because it proves both
 $$\varepsilon_i = 0$$ and $$\varepsilon_i \neq 0$$ (the latter is now another axiom). And in
 general, it is very easy to *implicitly* add simple and reasonable assumptions like
 $$\varepsilon_i \neq 0$$ in a reasoning: for example, just observe that I implicitly assumed
 $$\text{Var}(R_M) \neq 0$$ throughouht a majority of the previous sections without ever stating it
-explicitly. From there, the danger is that we start proving theorems that feel like "natural"
-consequences of the assumptions, without realizing that we are relying on the inconsistency of
-the theory. For example, let's say that we find a proof that the idiosyncratic volatility
-of any asset is always less than $$100\%$$ (remember that we *will* find such a proof because the
-theory proves everything due to its inconsistency). We test this property empirically on a few
-stocks within our investment universe, and find that it is empirically true, so we become confident
-that no mistake was made in our proof.
+explicitly. The conclusion is that, because the theory is inconsistent, we cannot trust any of its
+consequences, and the reason some of them are still reasonable is because they stem from *another*
+theory which happens to be consistent: for example a theory describing Fama's revised model, but we
+cannot know that until we uncover said theory.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+But how can we be sure that Fama's theory is consistent and does not lead to contradictions like
+the Diagonal Model? Within formal logic, we would try to find an **intepretation** of the theory in
+which the axioms hold. An interpretation means that we produce concrete objects in place of the
+abstract variables, and are now allowed to rely on specific properties about these objects (*i.e.*
+their "true nature") to verify the axioms. Such an interpretation is then called a **model** of the
+theory, and a theory having a model is necessarily consistent (this is one direction of what is
+known as *Gödel's completeness theorem*, the reciprocal direction being that every consistent
+theory has a model). In order to show that Fama's theory is consistent, we are going to produce
+actual random variables that verify all of its axioms: let
+$$(\widetilde{\varepsilon}_1, \cdots, \widetilde{\varepsilon}_n, \widetilde{R})$$ follow a
+$$(n+1)$$-variate normal distribution with mean vector $$(0, \cdots, 0, \widetilde{r})$$ and
+diagonal covariance matrix
+
+$$
+\begin{pmatrix}
+\sigma_1^2 &  & & \\
+ & \ddots & & \\
+ &  & \sigma_n^2 & \\
+ &  &  & \sigma_{n+1}^2
+\end{pmatrix}
+$$
+
+then define $$R_i \triangleq \alpha_i + \beta_i \widetilde{R} + \widetilde{\varepsilon}_i$$ for
+$$i \in \{1, \cdots, n\}$$. It is easily verified that the $$(\widetilde{\varepsilon}_i$$) and
+$$\widetilde{R}$$ satisfy the three conditions of $$\eqref{eq:hypothesis_fama}$$, while each
+$$R_i$$ obviously satifies $$\eqref{eq:fama}$$. In what precedes, $$r \in \mathbb{R}$$ and
+$$\sigma_1, \cdots, \sigma_{n+1} > 0$$ are arbitrary parameters, so that we really produced a
+collection of interpretations in which Fama's axioms are true. A theory being consistent does not
+mean that is is universally true, *i.e.* there may be interpretations where the axioms do not hold:
+it would be very easy to produce a mathematical interpretation of Fama's theory in which the axioms
+are false, but we also have empirical evidence that the real world is not really a model of Fama's
+theory.
 
 [^1]: William F. Sharpe. *A Simplified Model for Portfolio Analysis*. Management Science. Vol. 9, No. 2 (Jan 1963), pp. 277-293.
 [^2]: Chapter 4, "An Introduction to Multi-Factor Models", p. 39.
