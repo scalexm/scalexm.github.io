@@ -124,7 +124,7 @@ formulation is also given in terms of expectations:
 
 $$
 \begin{equation}
-\mathbb{E}(R_i) = \beta_i \mathop{\mathbb{E}}(R_M),
+\mathbf{E}(R_i) = \beta_i \mathop{\mathbf{E}}(R_M),
     \quad \beta_i = \frac{\text{Cov}(R_i, R_M)}{\text{Var}(R_M)}
 \label{eq:capm}
 \end{equation}
@@ -181,12 +181,12 @@ $$\eqref{eq:hypothesis}$$.
 
 The Diagonal Model now becomes a completely independent model that simply attempts to encode the
 empirical observation that market risk is a common driver of returns, free of any other economic
-assumptions. $$R_M$$ does not have to be the return of the exact portfolio from the CAPM, but
-rather any portfolio or **factor** that is believed to drive returns in a given universe of assets:
-Sharpe does leave this door open in his 1963 paper (even though he only proceeds to apply it with
-actual portfolios), and this interpretation will help us fix the soundness issue described earlier.
-Still, the model remains in a sense *compatible* with the CAPM: this time as a consequence of the
-uncorrelatedness of $$\varepsilon_i$$ and $$R_M$$, we obtain again
+assumptions. In fact, $$R_M$$ does not have to be the return of the exact portfolio from the CAPM,
+but rather any portfolio or **factor** that is believed to drive returns in a given universe of
+assets: Sharpe does leave this door open in his 1963 paper (even though he only proceeds to apply
+it with actual portfolios), and this interpretation will help us fix the soundness issue described
+earlier. Still, the model remains in a sense *compatible* with the CAPM: this time as a consequence
+of the uncorrelatedness of $$\varepsilon_i$$ and $$R_M$$, we obtain again
 
 $$
     \beta_i = \frac{\text{Cov}(R_i, R_M)}{\text{Var}(R_M)}
@@ -342,7 +342,7 @@ describe a set of assumptions or **axioms** from which we can derive both one th
 contrary. It can easily be shown that an inconsistent theory also proves *every single sentence*:
 not only can you prove one thing and its contrary, but you can in fact literally prove anything you
 want. Our model as laid out in the first section was not inconsistent in the strict sense, we just
-proved that it was equivalent to a much simpler one where $$\varepsilon_i$$ is always zero. However
+proved that it is equivalent to a much simpler one where $$\varepsilon_i$$ is always zero. However
 if we start assuming that $$\varepsilon_i \neq 0$$, then it becomes *truly* inconsistent, because
 it proves both $$\varepsilon_i = 0$$ and $$\varepsilon_i \neq 0$$. And in general, it is very easy
 to *implicitly* add simple assumptions like $$\varepsilon_i \neq 0$$ in a reasoning: for example,
@@ -385,10 +385,10 @@ either, providing us with a very concrete example.
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 What about the CAPM, is it consistent? Making abstraction of the economic arguments that lead to
 its formulation, we need to produce an example of random returns that verify $$\eqref{eq:capm}$$,
-and we also saw that $$\beta_i = \mathop{\text{Cov}}(R_i, R_M) / \mathop{\text{Var}}(R_M)$$ was
-equivalent to $$\text{Cov}(\varepsilon_i, R_M) = 0$$. Fama believed that this last condition was
-contradictory just by itself[^7], because $$\varepsilon_i$$ appeared in the expression of $$R_i$$
-which was itself a term in the expression of $$R_M$$, hence the two could not be uncorrelated.
+and we also saw that $$\beta_i = \mathop{\text{Cov}}(R_i, R_M) / \mathop{\text{Var}}(R_M)$$ is
+equivalent to $$\text{Cov}(\varepsilon_i, R_M) = 0$$. Fama believed this last condition to be
+contradictory just by itself[^7], because $$\varepsilon_i$$ appears in the expression of $$R_i$$
+which is itself a term in the expression of $$R_M$$, hence the two could not be uncorrelated.
 However, he made a mistake in that what really appears in $$R_M$$ is
 $$\sum \omega_i \varepsilon_i$$ and this sum may be equal to zero. If we start from random returns
 that satisfy Fama's axioms, such as the example we produced in the previous paragraph, then it is
